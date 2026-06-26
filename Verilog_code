@@ -1,0 +1,37 @@
+// Code your design here
+module dec4_1(D, A, B);
+  input A, B;
+  output [3:0] D;
+
+  assign D[0] = ~A & ~B;
+  assign D[1] = ~A &  B;
+  assign D[2] =  A & ~B;
+  assign D[3] =  A &  B;
+
+endmodule
+
+// Code your testbench here
+// or browse Examples
+module tb;
+  reg A, B;
+  wire [3:0] D;
+
+  dec4_1 dut(D, A, B);
+
+  initial begin
+    A=0; B=0; #5;
+    A=0; B=1; #5;
+    A=1; B=0; #5;
+    A=1; B=1; #5;
+
+    #10 $finish;
+  end
+
+  always @(A, B)
+    $display("A=%b B=%b  Decoder Output = %b", A, B, D);
+
+  initial begin
+    $dumpfile("dump.vcd");
+    $dumpvars();
+  end
+endmodule
